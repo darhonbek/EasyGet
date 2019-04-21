@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		20180C72226CB18700A04555 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 20180C71226CB18700A04555 /* GoogleService-Info.plist */; };
 		20180C7B226CB22600A04555 /* Beep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 20180C7A226CB22600A04555 /* Beep.mp3 */; };
 		20180C7D226CB25600A04555 /* CartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20180C7C226CB25600A04555 /* CartViewController.swift */; };
 		20180C7F226CB26A00A04555 /* ScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20180C7E226CB26A00A04555 /* ScannerViewController.swift */; };
+		20180C89226CCCFD00A04555 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 20180C88226CCCFD00A04555 /* GoogleService-Info.plist */; };
 		2026DAF5226CB084003FECBD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2026DAF4226CB084003FECBD /* AppDelegate.swift */; };
 		2026DAF7226CB084003FECBD /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2026DAF6226CB084003FECBD /* MainViewController.swift */; };
 		2026DAFC226CB085003FECBD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2026DAFB226CB085003FECBD /* Assets.xcassets */; };
@@ -19,10 +19,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		20180C71226CB18700A04555 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		20180C7A226CB22600A04555 /* Beep.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Beep.mp3; sourceTree = "<group>"; };
 		20180C7C226CB25600A04555 /* CartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartViewController.swift; sourceTree = "<group>"; };
 		20180C7E226CB26A00A04555 /* ScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerViewController.swift; sourceTree = "<group>"; };
+		20180C88226CCCFD00A04555 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2026DAF1226CB084003FECBD /* EasyGet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EasyGet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2026DAF4226CB084003FECBD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2026DAF6226CB084003FECBD /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -115,7 +115,7 @@
 				20180C77226CB1EB00A04555 /* Resources */,
 				20180C78226CB1F400A04555 /* UI */,
 				2026DB00226CB085003FECBD /* Info.plist */,
-				20180C71226CB18700A04555 /* GoogleService-Info.plist */,
+				20180C88226CCCFD00A04555 /* GoogleService-Info.plist */,
 			);
 			path = EasyGet;
 			sourceTree = "<group>";
@@ -198,7 +198,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2026DAFF226CB085003FECBD /* LaunchScreen.storyboard in Resources */,
-				20180C72226CB18700A04555 /* GoogleService-Info.plist in Resources */,
+				20180C89226CCCFD00A04555 /* GoogleService-Info.plist in Resources */,
 				20180C7B226CB22600A04555 /* Beep.mp3 in Resources */,
 				2026DAFC226CB085003FECBD /* Assets.xcassets in Resources */,
 			);
@@ -217,6 +217,7 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-EasyGet/Pods-EasyGet-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -224,6 +225,7 @@
 			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -410,7 +412,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = darkhonbek.EasyGet;
+				PRODUCT_BUNDLE_IDENTIFIER = com.darkhonbek.EasyGet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -430,7 +432,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = darkhonbek.EasyGet;
+				PRODUCT_BUNDLE_IDENTIFIER = com.darkhonbek.EasyGet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
