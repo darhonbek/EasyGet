@@ -27,17 +27,6 @@ class ScannerViewController: UIViewController {
         return previewLayer
     }()
 
-    fileprivate lazy var backButton:  UIBarButtonItem = {
-        let backButton = UIBarButtonItem(
-            title: "Back",
-            style: .plain,
-            target: self,
-            action: #selector(touchUpInside(backbutton:))
-        )
-
-        return backButton
-    }()
-
     fileprivate lazy var doneButton:  UIBarButtonItem = {
         let doneButton = UIBarButtonItem(
             title: "Done",
@@ -123,7 +112,6 @@ class ScannerViewController: UIViewController {
     // MARK: -
 
     private func setupNavigationBar() {
-        navigationItem.leftBarButtonItem = backButton
         navigationItem.rightBarButtonItem = doneButton
         navigationItem.title = "Scan Products"
     }
