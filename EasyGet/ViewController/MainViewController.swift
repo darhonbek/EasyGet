@@ -27,7 +27,7 @@ class MainViewController: UIViewController {
     }
 
     required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) is not implemented")
+        fatalError("init(coder:) has not been implemented")
     }
 
     override func loadView() {

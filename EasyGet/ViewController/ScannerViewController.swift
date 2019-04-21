@@ -12,6 +12,7 @@ import UIKit
 import FirebaseDatabase
 
 class ScannerViewController: UIViewController {
+    fileprivate var cart: [Product]
     fileprivate var databaseReference: DatabaseReference!
     fileprivate var captureSession: AVCaptureSession!
     fileprivate var audioPlayer: AVAudioPlayer?
@@ -68,12 +69,13 @@ class ScannerViewController: UIViewController {
     
     init() {
         isScanningInProgress = false
+        cart = []
 
         super.init(nibName: nil, bundle: nil)
     }
 
     required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) is not implemented")
+        fatalError("init(coder:) has not been implemented")
     }
 
     override func viewDidLoad() {
@@ -133,9 +135,11 @@ class ScannerViewController: UIViewController {
     }
 
     @objc func touchUpInside(donebutton: UIBarButtonItem) {
-        let cartViewController = CartViewController()
+        let cartViewController = CartViewController(cart: cart)
         navigationController?.pushViewController(cartViewController, animated: true)
     }
+
+    // FIXME: - Refactor
 
     fileprivate func didDetect(productCode: String, completionHandler: @escaping (Product?) -> Void) {
         AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
@@ -161,9 +165,10 @@ class ScannerViewController: UIViewController {
 
     fileprivate func showItemAddedPopup(for product: Product?, completionHandler: @escaping () -> Void) {
         if let product = product {
+            cart.append(product)
             let alertController = UIAlertController(
-                title: "\(product.name) ➡️ 🛒",
-                message: "$\(product.price)",
+                title: "Item Added to Cart ✅",
+                message: "🛒 \(product.name)\n💲 \(product.price)",
                 preferredStyle: .alert
             )
             self.present(alertController, animated: true)
@@ -185,6 +190,30 @@ class ScannerViewController: UIViewController {
             return image
         } catch {
             return nil
+        }
+    }
+}
+
+// MARK: - AVCaptureMetadataOutputObjectsDelegate
+
+extension ScannerViewController: AVCaptureMetadataOutputObjectsDelegate {
+    func metadataOutput(_ output: AVCaptureMetadataOutput,
+                        didOutput metadataObjects: [AVMetadataObject],
+                        from connection: AVCaptureConnection) {
+        if !isScanningInProgress {
+            isScanningInProgress = true
+
+            if let metadataObject = metadataObjects.first,
+                let readableObject = metadataObject as? AVMetadataMachineReadableCodeObject,
+                let code = readableObject.stringValue {
+                didDetect(productCode: code) { product in
+                    self.showItemAddedPopup(for: product, completionHandler: {
+                        self.isScanningInProgress = false
+                    })
+                }
+            } else {
+                isScanningInProgress = false
+            }
         }
     }
 }
@@ -257,29 +286,5 @@ extension ScannerViewController {
         alertController.addAction(UIAlertAction(title: "OK", style: .default))
         present(alertController, animated: true)
         captureSession = nil
-    }
-}
-
-// MARK: - AVCaptureMetadataOutputObjectsDelegate
-
-extension ScannerViewController: AVCaptureMetadataOutputObjectsDelegate {
-    func metadataOutput(_ output: AVCaptureMetadataOutput,
-                        didOutput metadataObjects: [AVMetadataObject],
-                        from connection: AVCaptureConnection) {
-        if !isScanningInProgress {
-            isScanningInProgress = true
-
-            if let metadataObject = metadataObjects.first,
-                let readableObject = metadataObject as? AVMetadataMachineReadableCodeObject,
-                let code = readableObject.stringValue {
-                didDetect(productCode: code) { product in
-                    self.showItemAddedPopup(for: product, completionHandler: {
-                        self.isScanningInProgress = false
-                    })
-                }
-            } else {
-                isScanningInProgress = false
-            }
-        }
     }
 }
