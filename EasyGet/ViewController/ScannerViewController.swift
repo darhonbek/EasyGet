@@ -15,15 +15,17 @@ class ScannerViewController: UIViewController {
     fileprivate var databaseReference: DatabaseReference!
     fileprivate var captureSession: AVCaptureSession!
     fileprivate var audioPlayer: AVAudioPlayer?
-    
+
+    private var isScanningInProgress: Bool
+
     fileprivate lazy var previewLayer: AVCaptureVideoPreviewLayer = {
         let previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
         previewLayer.frame = view.layer.bounds
         previewLayer.videoGravity = .resizeAspectFill
-        
+
         return previewLayer
     }()
-    
+
     fileprivate lazy var backButton:  UIBarButtonItem = {
         let backButton = UIBarButtonItem(
             title: "Back",
@@ -31,10 +33,10 @@ class ScannerViewController: UIViewController {
             target: self,
             action: #selector(touchUpInside(backbutton:))
         )
-        
+
         return backButton
     }()
-    
+
     fileprivate lazy var doneButton:  UIBarButtonItem = {
         let doneButton = UIBarButtonItem(
             title: "Done",
@@ -42,10 +44,10 @@ class ScannerViewController: UIViewController {
             target: self,
             action: #selector(touchUpInside(donebutton:))
         )
-        
+
         return doneButton
     }()
-    
+
     private let supportedCodeTypes = [
         AVMetadataObject.ObjectType.upce,
         AVMetadataObject.ObjectType.code39,
@@ -61,27 +63,29 @@ class ScannerViewController: UIViewController {
         AVMetadataObject.ObjectType.interleaved2of5,
         AVMetadataObject.ObjectType.qr
     ]
-    
+
     // MARK: - Lifecycle
     
     init() {
+        isScanningInProgress = false
+
         super.init(nibName: nil, bundle: nil)
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) is not implemented")
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         setupCamera()
         setupAudio()
         view.layer.addSublayer(previewLayer)
         setupNavigationBar()
-        
+
         databaseReference = Database.database().reference()
-        
+
         // FIXME: - Workaround to populate database
         //        databaseReference.child("products").child("1").setValue(
         //            ["name": "Milk",
@@ -94,64 +98,94 @@ class ScannerViewController: UIViewController {
         //             "imageUrl": "https://firebasestorage.googleapis.com/v0/b/easyget-dcd23.appspot.com/o/bread.jpg?alt=media&token=0d24f1ad-f276-4720-b3b2-8bb28f3dc533"]
         //        )
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+
         startCaptureSession()
     }
-    
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
+
         stopCaptureSession()
     }
-    
-    
+
+
     // MARK: - Orientation
-    
+
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return .portrait
     }
-    
+
     // MARK: -
-    
+
     private func setupNavigationBar() {
         navigationItem.leftBarButtonItem = backButton
         navigationItem.rightBarButtonItem = doneButton
         navigationItem.title = "Scan Products"
     }
-    
+
     // MARK: - Actions
-    
+
     @objc func touchUpInside(backbutton: UIBarButtonItem) {
         navigationController?.popViewController(animated: true)
     }
-    
+
     @objc func touchUpInside(donebutton: UIBarButtonItem) {
         let cartViewController = CartViewController()
         navigationController?.pushViewController(cartViewController, animated: true)
     }
-    
-    fileprivate func didDetect(productDescription: String) {
+
+    fileprivate func didDetect(productCode: String, completionHandler: @escaping (Product?) -> Void) {
+        AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
         playScannerSound()
-        
-        let alertAction = UIAlertAction(
-            title: "OK",
-            style: .default,
-            handler: { action in
-                self.startCaptureSession()
+
+        databaseReference.child("products").child(productCode).observeSingleEvent(of: .value, with: { (snapshot) in
+            if let value = snapshot.value as? NSDictionary,
+                let name = value["name"] as? String,
+                let price = value["price"] as? Double,
+                let imageUrl = value["imageUrl"] as? String {
+                let url = URL(fileURLWithPath: imageUrl)
+
+                // FIXME: - Image load should be async
+                let image = self.loadImageFrom(url: url)
+
+                let product = Product(id: productCode, name: name, price: price, image: image)
+                completionHandler(product)
+            }
+        }) { _ in
+            completionHandler(nil)
         }
-        )
-        
-        let alertController = UIAlertController(
-            title: "Added to cart ✅",
-            message: productDescription,
-            preferredStyle: .alert
-        )
-        
-        alertController.addAction(alertAction)
-        present(alertController, animated: true, completion: nil)
+    }
+
+    fileprivate func showItemAddedPopup(for product: Product?, completionHandler: @escaping () -> Void) {
+        if let product = product {
+            let alertController = UIAlertController(
+                title: "\(product.name) ➡️ 🛒",
+                message: "$\(product.price)",
+                preferredStyle: .alert
+            )
+            self.present(alertController, animated: true)
+
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                alertController.dismiss(animated: true, completion: nil)
+                completionHandler()
+            }
+        } else {
+            completionHandler()
+        }
+    }
+
+    private func loadImageFrom(url: URL) -> UIImage? {
+        do {
+            let data = try Data(contentsOf: url)
+            let image = UIImage(data: data)
+
+            return image
+        } catch {
+            return nil
+        }
     }
 }
 
@@ -160,7 +194,7 @@ class ScannerViewController: UIViewController {
 extension ScannerViewController {
     fileprivate func setupAudio() {
         guard let url = Bundle.main.url(forResource: "Beep", withExtension: "mp3") else { return }
-        
+
         do {
             try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
             try AVAudioSession.sharedInstance().setActive(true)
@@ -169,7 +203,7 @@ extension ScannerViewController {
             print(error.localizedDescription)
         }
     }
-    
+
     fileprivate func playScannerSound() {
         audioPlayer?.play()
     }
@@ -180,13 +214,13 @@ extension ScannerViewController {
 extension ScannerViewController {
     fileprivate func setupCamera() {
         captureSession = AVCaptureSession()
-        
+
         guard let videoCaptureDevice = AVCaptureDevice.default(for: .video) else { return }
-        
+
         do {
             let videoInput = try AVCaptureDeviceInput(device: videoCaptureDevice)
             let metadataOutput = AVCaptureMetadataOutput()
-            
+
             if captureSession.canAddInput(videoInput) && captureSession.canAddOutput(metadataOutput) {
                 captureSession.addInput(videoInput)
                 captureSession.addOutput(metadataOutput)
@@ -194,26 +228,26 @@ extension ScannerViewController {
                 metadataOutput.metadataObjectTypes = supportedCodeTypes
             } else {
                 showCameraNotSupportedWarning()
-                
+
                 return
             }
         } catch {
             return
         }
     }
-    
+
     fileprivate func startCaptureSession() {
         if captureSession?.isRunning == false {
             captureSession.startRunning()
         }
     }
-    
+
     fileprivate func stopCaptureSession() {
         if captureSession?.isRunning == true {
             captureSession.stopRunning()
         }
     }
-    
+
     fileprivate func showCameraNotSupportedWarning() {
         let alertController = UIAlertController(
             title: "Scanning not supported",
@@ -232,13 +266,20 @@ extension ScannerViewController: AVCaptureMetadataOutputObjectsDelegate {
     func metadataOutput(_ output: AVCaptureMetadataOutput,
                         didOutput metadataObjects: [AVMetadataObject],
                         from connection: AVCaptureConnection) {
-        stopCaptureSession()
-        
-        if let metadataObject = metadataObjects.first {
-            guard let readableObject = metadataObject as? AVMetadataMachineReadableCodeObject else { return }
-            guard let stringValue = readableObject.stringValue else { return }
-            AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
-            didDetect(productDescription: stringValue)
+        if !isScanningInProgress {
+            isScanningInProgress = true
+
+            if let metadataObject = metadataObjects.first,
+                let readableObject = metadataObject as? AVMetadataMachineReadableCodeObject,
+                let code = readableObject.stringValue {
+                didDetect(productCode: code) { product in
+                    self.showItemAddedPopup(for: product, completionHandler: {
+                        self.isScanningInProgress = false
+                    })
+                }
+            } else {
+                isScanningInProgress = false
+            }
         }
     }
 }

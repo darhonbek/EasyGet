@@ -15,6 +15,7 @@
 		2026DAF7226CB084003FECBD /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2026DAF6226CB084003FECBD /* MainViewController.swift */; };
 		2026DAFC226CB085003FECBD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2026DAFB226CB085003FECBD /* Assets.xcassets */; };
 		2026DAFF226CB085003FECBD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2026DAFD226CB085003FECBD /* LaunchScreen.storyboard */; };
+		204CD048226CCE58005F9B57 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204CD047226CCE58005F9B57 /* Product.swift */; };
 		B7E92B15B4F365A652B9D9AF /* Pods_EasyGet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58CADE19F08362B3777F4D9D /* Pods_EasyGet.framework */; };
 /* End PBXBuildFile section */
 
@@ -29,6 +30,7 @@
 		2026DAFB226CB085003FECBD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2026DAFE226CB085003FECBD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2026DB00226CB085003FECBD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		204CD047226CCE58005F9B57 /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 		58CADE19F08362B3777F4D9D /* Pods_EasyGet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EasyGet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CF5B4952910173CAC5E58AE /* Pods-EasyGet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EasyGet.release.xcconfig"; path = "Pods/Target Support Files/Pods-EasyGet/Pods-EasyGet.release.xcconfig"; sourceTree = "<group>"; };
 		96AA9468B720F2E76A51ABC0 /* Pods-EasyGet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EasyGet.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EasyGet/Pods-EasyGet.debug.xcconfig"; sourceTree = "<group>"; };
@@ -111,6 +113,7 @@
 			children = (
 				2026DAF4226CB084003FECBD /* AppDelegate.swift */,
 				20180C75226CB1C900A04555 /* Assets */,
+				204CD046226CCE40005F9B57 /* Entity */,
 				20180C76226CB1D300A04555 /* ViewController */,
 				20180C77226CB1EB00A04555 /* Resources */,
 				20180C78226CB1F400A04555 /* UI */,
@@ -118,6 +121,14 @@
 				20180C88226CCCFD00A04555 /* GoogleService-Info.plist */,
 			);
 			path = EasyGet;
+			sourceTree = "<group>";
+		};
+		204CD046226CCE40005F9B57 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				204CD047226CCE58005F9B57 /* Product.swift */,
+			);
+			path = Entity;
 			sourceTree = "<group>";
 		};
 		A498E90ACF67059D4176FD5B /* Frameworks */ = {
@@ -264,6 +275,7 @@
 			files = (
 				2026DAF7226CB084003FECBD /* MainViewController.swift in Sources */,
 				20180C7D226CB25600A04555 /* CartViewController.swift in Sources */,
+				204CD048226CCE58005F9B57 /* Product.swift in Sources */,
 				2026DAF5226CB084003FECBD /* AppDelegate.swift in Sources */,
 				20180C7F226CB26A00A04555 /* ScannerViewController.swift in Sources */,
 			);
