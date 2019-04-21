@@ -6,3 +6,5 @@ Self checkout application. Scan -> Review -> Pay. Supports QR scanning. Connecte
 https://appicon.co
 
 https://designevo.com
+
+https://qrcode-monkey.com
