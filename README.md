@@ -3,5 +3,5 @@ Self checkout application. Scan -> Review -> Pay. Supports QR scanning. Connecte
 
 
 # Thanks to
-appicon.co
-designevo.com
+https://appicon.co
+https://designevo.com
