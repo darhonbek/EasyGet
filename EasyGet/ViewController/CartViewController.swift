@@ -37,6 +37,7 @@ class CartViewController: UIViewController {
         super.loadView()
 
         view.addSubview(tableView)
+        title = "Cart"
     }
 }
 

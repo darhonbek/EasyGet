@@ -88,8 +88,8 @@ class ScannerViewController: UIViewController {
 
         setupCamera()
         setupAudio()
-        view.layer.addSublayer(previewLayer)
         setupNavigationBar()
+        view.layer.addSublayer(previewLayer)
         floatingPanelController.addPanel(toParent: self, animated: true)
 
         databaseReference = Database.database().reference()
@@ -202,7 +202,23 @@ class ScannerViewController: UIViewController {
 // MARK: - FloatingPanelControllerDelegate
 
 extension ScannerViewController: FloatingPanelControllerDelegate {
+    func floatingPanel(_ vc: FloatingPanelController, layoutFor newCollection: UITraitCollection) -> FloatingPanelLayout? {
+        return CartFloatingPanelLayout()
+    }
+}
 
+class CartFloatingPanelLayout: FloatingPanelLayout {
+    public var initialPosition: FloatingPanelPosition {
+        return .tip
+    }
+
+    public func insetFor(position: FloatingPanelPosition) -> CGFloat? {
+        switch position {
+        case .full: return 16.0 // A top inset from safe area
+        case .half: return 216.0 // A bottom inset from the safe area
+        case .tip: return 44.0 // A bottom inset from the safe area
+        }
+    }
 }
 
 // MARK: - AVCaptureMetadataOutputObjectsDelegate
