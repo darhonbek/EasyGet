@@ -8,4 +8,5 @@ target 'EasyGet' do
   # Pods for EasyGet
  pod 'Firebase/Core'
  pod 'Firebase/Database'
+ pod 'FloatingPanel'
 end

@@ -25,6 +25,7 @@ PODS:
     - FirebaseCore (~> 5.1)
     - GoogleUtilities/Environment (~> 5.3)
     - GoogleUtilities/UserDefaults (~> 5.3)
+  - FloatingPanel (1.2.0)
   - GoogleAppMeasurement (5.3.0):
     - GoogleUtilities/AppDelegateSwizzler (~> 5.2)
     - GoogleUtilities/MethodSwizzler (~> 5.2)
@@ -59,6 +60,7 @@ PODS:
 DEPENDENCIES:
   - Firebase/Core
   - Firebase/Database
+  - FloatingPanel
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -67,6 +69,7 @@ SPEC REPOS:
     - FirebaseCore
     - FirebaseDatabase
     - FirebaseInstanceID
+    - FloatingPanel
     - GoogleAppMeasurement
     - GoogleUtilities
     - leveldb-library
@@ -78,11 +81,12 @@ SPEC CHECKSUMS:
   FirebaseCore: 027d350adc039aa5483357c6f56556f117c5170e
   FirebaseDatabase: e2bcbc106adc4b11a2da3ec2eb63c0c4a44f2f54
   FirebaseInstanceID: e2fa4cb35ef5558c200f7f0ad8a53e212215f93e
+  FloatingPanel: b6c56634780f25a4b5146025714f3ad5eeb5afb9
   GoogleAppMeasurement: 5029d78f2b438bd30ffb44e6c558b57c21622727
   GoogleUtilities: 95996bea7c7d9b8fb811b7507669a4a8762f80c7
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
 
-PODFILE CHECKSUM: d86e4c172bb42e9a41a6f129fd22c9d98297d3e1
+PODFILE CHECKSUM: 8a42dcafdf5e008a5860c8e112811a7197fb942e
 
 COCOAPODS: 1.5.3
