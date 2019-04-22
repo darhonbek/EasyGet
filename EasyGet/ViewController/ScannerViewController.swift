@@ -10,6 +10,7 @@ import AVFoundation
 import UIKit
 
 import FirebaseDatabase
+import FloatingPanel
 
 class ScannerViewController: UIViewController {
     fileprivate var cart: [Product]
@@ -18,6 +19,37 @@ class ScannerViewController: UIViewController {
     fileprivate var audioPlayer: AVAudioPlayer?
 
     private var isScanningInProgress: Bool
+    private let supportedCodeTypes = [
+        AVMetadataObject.ObjectType.upce,
+        AVMetadataObject.ObjectType.code39,
+        AVMetadataObject.ObjectType.code39Mod43,
+        AVMetadataObject.ObjectType.code93,
+        AVMetadataObject.ObjectType.code128,
+        AVMetadataObject.ObjectType.ean8,
+        AVMetadataObject.ObjectType.ean13,
+        AVMetadataObject.ObjectType.aztec,
+        AVMetadataObject.ObjectType.pdf417,
+        AVMetadataObject.ObjectType.itf14,
+        AVMetadataObject.ObjectType.dataMatrix,
+        AVMetadataObject.ObjectType.interleaved2of5,
+        AVMetadataObject.ObjectType.qr
+    ]
+
+    fileprivate lazy var cartViewController: CartViewController = {
+        return CartViewController(cart: cart)
+    }()
+
+    fileprivate lazy var floatingPanelController: FloatingPanelController = {
+        var controller = FloatingPanelController()
+        controller.surfaceView.backgroundColor = .clear
+        controller.surfaceView.cornerRadius = 9.0
+        controller.surfaceView.shadowHidden = false
+        controller.set(contentViewController: cartViewController)
+        controller.track(scrollView: cartViewController.tableView)
+        controller.delegate = self
+
+        return controller
+    }()
 
     fileprivate lazy var previewLayer: AVCaptureVideoPreviewLayer = {
         let previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
@@ -37,22 +69,6 @@ class ScannerViewController: UIViewController {
 
         return doneButton
     }()
-
-    private let supportedCodeTypes = [
-        AVMetadataObject.ObjectType.upce,
-        AVMetadataObject.ObjectType.code39,
-        AVMetadataObject.ObjectType.code39Mod43,
-        AVMetadataObject.ObjectType.code93,
-        AVMetadataObject.ObjectType.code128,
-        AVMetadataObject.ObjectType.ean8,
-        AVMetadataObject.ObjectType.ean13,
-        AVMetadataObject.ObjectType.aztec,
-        AVMetadataObject.ObjectType.pdf417,
-        AVMetadataObject.ObjectType.itf14,
-        AVMetadataObject.ObjectType.dataMatrix,
-        AVMetadataObject.ObjectType.interleaved2of5,
-        AVMetadataObject.ObjectType.qr
-    ]
 
     // MARK: - Lifecycle
     
@@ -74,6 +90,7 @@ class ScannerViewController: UIViewController {
         setupAudio()
         view.layer.addSublayer(previewLayer)
         setupNavigationBar()
+        floatingPanelController.addPanel(toParent: self, animated: true)
 
         databaseReference = Database.database().reference()
 
@@ -180,6 +197,12 @@ class ScannerViewController: UIViewController {
             return nil
         }
     }
+}
+
+// MARK: - FloatingPanelControllerDelegate
+
+extension ScannerViewController: FloatingPanelControllerDelegate {
+
 }
 
 // MARK: - AVCaptureMetadataOutputObjectsDelegate

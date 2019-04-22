@@ -13,7 +13,7 @@ import UIKit
 class CartViewController: UIViewController {
     fileprivate var cart: [Product]
 
-    fileprivate lazy var tableView: UITableView = {
+    lazy var tableView: UITableView = {
         var tableView = UITableView(frame: view.bounds)
         tableView.dataSource = self
         tableView.delegate = self
