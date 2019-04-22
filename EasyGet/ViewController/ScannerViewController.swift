@@ -59,15 +59,15 @@ class ScannerViewController: UIViewController {
         return previewLayer
     }()
 
-    fileprivate lazy var doneButton:  UIBarButtonItem = {
-        let doneButton = UIBarButtonItem(
+    fileprivate lazy var checkoutButton:  UIBarButtonItem = {
+        let checkoutButton = UIBarButtonItem(
             title: "Done",
             style: .plain,
             target: self,
-            action: #selector(touchUpInside(donebutton:))
+            action: #selector(touchUpInside(checkoutButton:))
         )
 
-        return doneButton
+        return checkoutButton
     }()
 
     // MARK: - Lifecycle
@@ -129,17 +129,14 @@ class ScannerViewController: UIViewController {
     // MARK: -
 
     private func setupNavigationBar() {
-        navigationItem.rightBarButtonItem = doneButton
+        navigationItem.rightBarButtonItem = checkoutButton
         navigationItem.title = "Scan Products"
     }
 
     // MARK: - Actions
 
-    @objc func touchUpInside(backbutton: UIBarButtonItem) {
-        navigationController?.popViewController(animated: true)
-    }
-
-    @objc func touchUpInside(donebutton: UIBarButtonItem) {
+    @objc func touchUpInside(checkoutButton: UIBarButtonItem) {
+        // FIXME: - Update button destination
         let cartViewController = CartViewController(cart: cart)
         navigationController?.pushViewController(cartViewController, animated: true)
     }
@@ -204,20 +201,6 @@ class ScannerViewController: UIViewController {
 extension ScannerViewController: FloatingPanelControllerDelegate {
     func floatingPanel(_ vc: FloatingPanelController, layoutFor newCollection: UITraitCollection) -> FloatingPanelLayout? {
         return CartFloatingPanelLayout()
-    }
-}
-
-class CartFloatingPanelLayout: FloatingPanelLayout {
-    public var initialPosition: FloatingPanelPosition {
-        return .tip
-    }
-
-    public func insetFor(position: FloatingPanelPosition) -> CGFloat? {
-        switch position {
-        case .full: return 16.0 // A top inset from safe area
-        case .half: return 216.0 // A bottom inset from the safe area
-        case .tip: return 44.0 // A bottom inset from the safe area
-        }
     }
 }
 
