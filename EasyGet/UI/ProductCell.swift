@@ -13,14 +13,13 @@ import UIKit
 class ProductCell: UITableViewCell {
     var product: Product? {
         didSet {
-            productImageView.image = product?.image
             nameLabel.text = product?.name
             priceLabel.text = "$" + (product?.price.description ?? "")
         }
     }
 
-    fileprivate lazy var productImageView: UIImageView = {
-        var imageView = UIImageView(image: product?.image)
+    lazy var productImageView: UIImageView = {
+        var imageView = UIImageView(image: nil)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
         imageView.backgroundColor = .red
@@ -68,23 +67,21 @@ class ProductCell: UITableViewCell {
         contentView.addSubview(productImageView)
         contentView.addSubview(nameLabel)
         contentView.addSubview(priceLabel)
-
+        
         NSLayoutConstraint.activate(
-            [
-                productImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10.0),
-                productImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10.0),
-                productImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10.0),
-                productImageView.widthAnchor.constraint(equalToConstant: 120.0),
-
-                nameLabel.leadingAnchor.constraint(equalTo: productImageView.trailingAnchor, constant: 10.0),
-                nameLabel.trailingAnchor.constraint(equalTo: priceLabel.leadingAnchor, constant: -10.0),
-                nameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20.0),
-                nameLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10.0),
-
-                priceLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10.0),
-//                priceLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10.0),
-                priceLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20.0),
-                priceLabel.widthAnchor.constraint(equalToConstant: 80.0)]
+            [productImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10.0),
+             productImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10.0),
+             productImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10.0),
+             productImageView.widthAnchor.constraint(equalToConstant: 120.0),
+             
+             nameLabel.leadingAnchor.constraint(equalTo: productImageView.trailingAnchor, constant: 10.0),
+             nameLabel.trailingAnchor.constraint(equalTo: priceLabel.leadingAnchor, constant: -10.0),
+             nameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20.0),
+             nameLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10.0),
+             
+             priceLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10.0),
+             priceLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20.0),
+             priceLabel.widthAnchor.constraint(equalToConstant: 80.0)]
         )
     }
 }

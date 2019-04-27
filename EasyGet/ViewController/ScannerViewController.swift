@@ -10,10 +10,12 @@ import AVFoundation
 import UIKit
 
 import FirebaseDatabase
+import FirebaseStorage
 
 class ScannerViewController: UIViewController {
     var products: [Product]
     fileprivate var databaseReference: DatabaseReference!
+    fileprivate var storageReference: StorageReference!
     fileprivate var captureSession: AVCaptureSession!
     fileprivate var audioPlayer: AVAudioPlayer?
 
@@ -75,6 +77,7 @@ class ScannerViewController: UIViewController {
         view.layer.addSublayer(previewLayer)
 
         databaseReference = Database.database().reference()
+        storageReference = Storage.storage().reference()
 
 //         FIXME: - Workaround to populate database
 //                databaseReference.child("products").child("1").setValue(
@@ -133,12 +136,7 @@ class ScannerViewController: UIViewController {
                 let name = value["name"] as? String,
                 let price = value["price"] as? Double,
                 let imageUrl = value["imageUrl"] as? String {
-                let url = URL(fileURLWithPath: imageUrl)
-
-                // FIXME: - Image load should be async
-                let image = self.loadImageFrom(url: url)
-
-                let product = Product(id: productCode, name: name, price: price, image: image)
+                let product = Product(id: productCode, name: name, price: price, imageUrl: imageUrl)
                 self.products.append(product)
                 completionHandler(product)
             }
@@ -162,17 +160,6 @@ class ScannerViewController: UIViewController {
             }
         } else {
             completionHandler()
-        }
-    }
-
-    private func loadImageFrom(url: URL) -> UIImage? {
-        do {
-            let data = try Data(contentsOf: url)
-            let image = UIImage(data: data)
-
-            return image
-        } catch {
-            return nil
         }
     }
 }
