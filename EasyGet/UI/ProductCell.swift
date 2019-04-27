@@ -22,7 +22,6 @@ class ProductCell: UITableViewCell {
         var imageView = UIImageView(image: nil)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
-        imageView.backgroundColor = .red
 
         return imageView
     }()
@@ -33,7 +32,6 @@ class ProductCell: UITableViewCell {
         label.numberOfLines = 3
         label.font = UIFont.systemFont(ofSize: 20.0)
         label.contentMode = .top
-        label.backgroundColor = .yellow
 
         return label
     }()
@@ -44,7 +42,6 @@ class ProductCell: UITableViewCell {
         label.font = UIFont.systemFont(ofSize: 20.0, weight: .bold)
         label.adjustsFontSizeToFitWidth = true
         label.textAlignment = .right
-        label.backgroundColor = .blue
 
         return label
     }()
