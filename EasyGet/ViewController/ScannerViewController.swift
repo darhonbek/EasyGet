@@ -13,10 +13,29 @@ import FirebaseDatabase
 import FloatingPanel
 
 class ScannerViewController: UIViewController {
-    fileprivate var cart: [Product]
+    var products: [Product]
     fileprivate var databaseReference: DatabaseReference!
     fileprivate var captureSession: AVCaptureSession!
     fileprivate var audioPlayer: AVAudioPlayer?
+
+    fileprivate lazy var previewLayer: AVCaptureVideoPreviewLayer = {
+        let previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
+        previewLayer.frame = view.layer.bounds
+        previewLayer.videoGravity = .resizeAspectFill
+
+        return previewLayer
+    }()
+
+    fileprivate lazy var doneButton:  UIBarButtonItem = {
+        let doneButton = UIBarButtonItem(
+            title: "Done",
+            style: .plain,
+            target: self,
+            action: #selector(touchUpInside(doneButton:))
+        )
+
+        return doneButton
+    }()
 
     private var isScanningInProgress: Bool
     private let supportedCodeTypes = [
@@ -35,46 +54,11 @@ class ScannerViewController: UIViewController {
         AVMetadataObject.ObjectType.qr
     ]
 
-    fileprivate lazy var cartViewController: CartViewController = {
-        return CartViewController(cart: cart)
-    }()
-
-    fileprivate lazy var floatingPanelController: FloatingPanelController = {
-        var controller = FloatingPanelController()
-        controller.surfaceView.backgroundColor = .clear
-        controller.surfaceView.cornerRadius = 9.0
-        controller.surfaceView.shadowHidden = false
-        controller.set(contentViewController: cartViewController)
-        controller.track(scrollView: cartViewController.tableView)
-        controller.delegate = self
-
-        return controller
-    }()
-
-    fileprivate lazy var previewLayer: AVCaptureVideoPreviewLayer = {
-        let previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-        previewLayer.frame = view.layer.bounds
-        previewLayer.videoGravity = .resizeAspectFill
-
-        return previewLayer
-    }()
-
-    fileprivate lazy var checkoutButton:  UIBarButtonItem = {
-        let checkoutButton = UIBarButtonItem(
-            title: "Done",
-            style: .plain,
-            target: self,
-            action: #selector(touchUpInside(checkoutButton:))
-        )
-
-        return checkoutButton
-    }()
-
     // MARK: - Lifecycle
     
     init() {
         isScanningInProgress = false
-        cart = []
+        products = []
 
         super.init(nibName: nil, bundle: nil)
     }
@@ -90,7 +74,6 @@ class ScannerViewController: UIViewController {
         setupAudio()
         setupNavigationBar()
         view.layer.addSublayer(previewLayer)
-        floatingPanelController.addPanel(toParent: self, animated: true)
 
         databaseReference = Database.database().reference()
 
@@ -129,15 +112,15 @@ class ScannerViewController: UIViewController {
     // MARK: -
 
     private func setupNavigationBar() {
-        navigationItem.rightBarButtonItem = checkoutButton
+        navigationItem.rightBarButtonItem = doneButton
         navigationItem.title = "Scan Products"
     }
 
     // MARK: - Actions
 
-    @objc func touchUpInside(checkoutButton: UIBarButtonItem) {
+    @objc func touchUpInside(doneButton: UIBarButtonItem) {
         // FIXME: - Update button destination
-        let cartViewController = CartViewController(cart: cart)
+        let cartViewController = CartViewController(products: [Product]())
         navigationController?.pushViewController(cartViewController, animated: true)
     }
 
@@ -158,6 +141,7 @@ class ScannerViewController: UIViewController {
                 let image = self.loadImageFrom(url: url)
 
                 let product = Product(id: productCode, name: name, price: price, image: image)
+                self.products.append(product)
                 completionHandler(product)
             }
         }) { _ in
@@ -167,7 +151,6 @@ class ScannerViewController: UIViewController {
 
     fileprivate func showItemAddedPopup(for product: Product?, completionHandler: @escaping () -> Void) {
         if let product = product {
-            cart.append(product)
             let alertController = UIAlertController(
                 title: "Item Added to Cart ✅",
                 message: "🛒 \(product.name)\n💲 \(product.price)",
@@ -196,14 +179,6 @@ class ScannerViewController: UIViewController {
     }
 }
 
-// MARK: - FloatingPanelControllerDelegate
-
-extension ScannerViewController: FloatingPanelControllerDelegate {
-    func floatingPanel(_ vc: FloatingPanelController, layoutFor newCollection: UITraitCollection) -> FloatingPanelLayout? {
-        return CartFloatingPanelLayout()
-    }
-}
-
 // MARK: - AVCaptureMetadataOutputObjectsDelegate
 
 extension ScannerViewController: AVCaptureMetadataOutputObjectsDelegate {
@@ -225,6 +200,14 @@ extension ScannerViewController: AVCaptureMetadataOutputObjectsDelegate {
                 isScanningInProgress = false
             }
         }
+    }
+}
+
+// MARK: - FloatingPanelControllerDelegate
+
+extension ScannerViewController: FloatingPanelControllerDelegate {
+    func floatingPanel(_ vc: FloatingPanelController, layoutFor newCollection: UITraitCollection) -> FloatingPanelLayout? {
+        return CartFloatingPanelLayout()
     }
 }
 

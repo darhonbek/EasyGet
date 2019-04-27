@@ -9,9 +9,8 @@
 import Foundation
 import UIKit
 
-
 class CartViewController: UIViewController {
-    fileprivate var cart: [Product]
+    fileprivate var products: [Product]
 
     lazy var tableView: UITableView = {
         var tableView = UITableView(frame: view.bounds)
@@ -23,8 +22,8 @@ class CartViewController: UIViewController {
 
     // MARK: - Lifecycle
 
-    init(cart: [Product]) {
-        self.cart = cart
+    init(products: [Product]) {
+        self.products = products
 
         super.init(nibName: nil, bundle: nil)
     }
@@ -53,14 +52,14 @@ extension CartViewController: UITableViewDelegate {
 
 extension CartViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return cart.count
+        return products.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let reuseIdentifier = "Cart Item Cell"
         let cell = UITableViewCell(style: .subtitle, reuseIdentifier: reuseIdentifier)
 
-        let product = cart[indexPath.row]
+        let product = products[indexPath.row]
         cell.textLabel?.text = product.name
 
         return cell
