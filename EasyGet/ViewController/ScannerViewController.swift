@@ -10,7 +10,6 @@ import AVFoundation
 import UIKit
 
 import FirebaseDatabase
-import FloatingPanel
 
 class ScannerViewController: UIViewController {
     var products: [Product]
@@ -202,15 +201,6 @@ extension ScannerViewController: AVCaptureMetadataOutputObjectsDelegate {
         }
     }
 }
-
-// MARK: - FloatingPanelControllerDelegate
-
-extension ScannerViewController: FloatingPanelControllerDelegate {
-    func floatingPanel(_ vc: FloatingPanelController, layoutFor newCollection: UITraitCollection) -> FloatingPanelLayout? {
-        return CartFloatingPanelLayout()
-    }
-}
-
 // MARK: - Audio
 
 extension ScannerViewController {

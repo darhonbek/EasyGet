@@ -10,13 +10,12 @@
 		20180C7B226CB22600A04555 /* Beep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 20180C7A226CB22600A04555 /* Beep.mp3 */; };
 		20180C7D226CB25600A04555 /* CartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20180C7C226CB25600A04555 /* CartViewController.swift */; };
 		20180C7F226CB26A00A04555 /* ScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20180C7E226CB26A00A04555 /* ScannerViewController.swift */; };
-		20180C89226CCCFD00A04555 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 20180C88226CCCFD00A04555 /* GoogleService-Info.plist */; };
 		2026DAF5226CB084003FECBD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2026DAF4226CB084003FECBD /* AppDelegate.swift */; };
 		2026DAF7226CB084003FECBD /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2026DAF6226CB084003FECBD /* MainViewController.swift */; };
 		2026DAFC226CB085003FECBD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2026DAFB226CB085003FECBD /* Assets.xcassets */; };
 		2026DAFF226CB085003FECBD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2026DAFD226CB085003FECBD /* LaunchScreen.storyboard */; };
 		204CD048226CCE58005F9B57 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204CD047226CCE58005F9B57 /* Product.swift */; };
-		20EFD856226E39850025D7E9 /* CartFloatingPanelLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20EFD855226E39850025D7E9 /* CartFloatingPanelLayout.swift */; };
+		207CE2752274DF0C00672952 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 207CE2742274DF0B00672952 /* GoogleService-Info.plist */; };
 		91E4BB2377D9288837969697 /* Pods_EasyGet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDD6BF9AE5550F86C5D7A5CD /* Pods_EasyGet.framework */; };
 /* End PBXBuildFile section */
 
@@ -24,7 +23,6 @@
 		20180C7A226CB22600A04555 /* Beep.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Beep.mp3; sourceTree = "<group>"; };
 		20180C7C226CB25600A04555 /* CartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartViewController.swift; sourceTree = "<group>"; };
 		20180C7E226CB26A00A04555 /* ScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerViewController.swift; sourceTree = "<group>"; };
-		20180C88226CCCFD00A04555 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2026DAF1226CB084003FECBD /* EasyGet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EasyGet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2026DAF4226CB084003FECBD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2026DAF6226CB084003FECBD /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -32,7 +30,7 @@
 		2026DAFE226CB085003FECBD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2026DB00226CB085003FECBD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		204CD047226CCE58005F9B57 /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
-		20EFD855226E39850025D7E9 /* CartFloatingPanelLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartFloatingPanelLayout.swift; sourceTree = "<group>"; };
+		207CE2742274DF0B00672952 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		7CEE95988185C6FFFBA14FFE /* Pods-EasyGet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EasyGet.release.xcconfig"; path = "Pods/Target Support Files/Pods-EasyGet/Pods-EasyGet.release.xcconfig"; sourceTree = "<group>"; };
 		CC7D325942CADEFA506114D3 /* Pods-EasyGet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EasyGet.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EasyGet/Pods-EasyGet.debug.xcconfig"; sourceTree = "<group>"; };
 		DDD6BF9AE5550F86C5D7A5CD /* Pods_EasyGet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EasyGet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -80,7 +78,6 @@
 			isa = PBXGroup;
 			children = (
 				2026DAFD226CB085003FECBD /* LaunchScreen.storyboard */,
-				20EFD855226E39850025D7E9 /* CartFloatingPanelLayout.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -121,7 +118,7 @@
 				20180C77226CB1EB00A04555 /* Resources */,
 				20180C78226CB1F400A04555 /* UI */,
 				2026DB00226CB085003FECBD /* Info.plist */,
-				20180C88226CCCFD00A04555 /* GoogleService-Info.plist */,
+				207CE2742274DF0B00672952 /* GoogleService-Info.plist */,
 			);
 			path = EasyGet;
 			sourceTree = "<group>";
@@ -212,7 +209,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2026DAFF226CB085003FECBD /* LaunchScreen.storyboard in Resources */,
-				20180C89226CCCFD00A04555 /* GoogleService-Info.plist in Resources */,
+				207CE2752274DF0C00672952 /* GoogleService-Info.plist in Resources */,
 				20180C7B226CB22600A04555 /* Beep.mp3 in Resources */,
 				2026DAFC226CB085003FECBD /* Assets.xcassets in Resources */,
 			);
@@ -280,7 +277,6 @@
 				20180C7D226CB25600A04555 /* CartViewController.swift in Sources */,
 				204CD048226CCE58005F9B57 /* Product.swift in Sources */,
 				2026DAF5226CB084003FECBD /* AppDelegate.swift in Sources */,
-				20EFD856226E39850025D7E9 /* CartFloatingPanelLayout.swift in Sources */,
 				20180C7F226CB26A00A04555 /* ScannerViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -428,7 +424,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.darkhonbek.EasyGet;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.darkhonbek.EasyGet-";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -448,7 +444,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.darkhonbek.EasyGet;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.darkhonbek.EasyGet-";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
