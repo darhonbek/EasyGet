@@ -16,6 +16,7 @@
 		2026DAFF226CB085003FECBD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2026DAFD226CB085003FECBD /* LaunchScreen.storyboard */; };
 		204CD048226CCE58005F9B57 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204CD047226CCE58005F9B57 /* Product.swift */; };
 		207CE2752274DF0C00672952 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 207CE2742274DF0B00672952 /* GoogleService-Info.plist */; };
+		207CE2792274E07D00672952 /* Logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 207CE2782274E07D00672952 /* Logo.png */; };
 		91E4BB2377D9288837969697 /* Pods_EasyGet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDD6BF9AE5550F86C5D7A5CD /* Pods_EasyGet.framework */; };
 /* End PBXBuildFile section */
 
@@ -31,6 +32,7 @@
 		2026DB00226CB085003FECBD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		204CD047226CCE58005F9B57 /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 		207CE2742274DF0B00672952 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		207CE2782274E07D00672952 /* Logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Logo.png; sourceTree = "<group>"; };
 		7CEE95988185C6FFFBA14FFE /* Pods-EasyGet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EasyGet.release.xcconfig"; path = "Pods/Target Support Files/Pods-EasyGet/Pods-EasyGet.release.xcconfig"; sourceTree = "<group>"; };
 		CC7D325942CADEFA506114D3 /* Pods-EasyGet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EasyGet.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EasyGet/Pods-EasyGet.debug.xcconfig"; sourceTree = "<group>"; };
 		DDD6BF9AE5550F86C5D7A5CD /* Pods_EasyGet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EasyGet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -69,6 +71,7 @@
 		20180C77226CB1EB00A04555 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				207CE2772274E05E00672952 /* Image */,
 				20180C79226CB20F00A04555 /* Audio */,
 			);
 			path = Resources;
@@ -129,6 +132,14 @@
 				204CD047226CCE58005F9B57 /* Product.swift */,
 			);
 			path = Entity;
+			sourceTree = "<group>";
+		};
+		207CE2772274E05E00672952 /* Image */ = {
+			isa = PBXGroup;
+			children = (
+				207CE2782274E07D00672952 /* Logo.png */,
+			);
+			path = Image;
 			sourceTree = "<group>";
 		};
 		43E53CF000F8918A91781B4B /* Pods */ = {
@@ -212,6 +223,7 @@
 				207CE2752274DF0C00672952 /* GoogleService-Info.plist in Resources */,
 				20180C7B226CB22600A04555 /* Beep.mp3 in Resources */,
 				2026DAFC226CB085003FECBD /* Assets.xcassets in Resources */,
+				207CE2792274E07D00672952 /* Logo.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
