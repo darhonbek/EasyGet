@@ -14,8 +14,10 @@ class CartViewController: UIViewController {
 
     lazy var tableView: UITableView = {
         var tableView = UITableView(frame: view.bounds)
+        tableView.allowsSelection = false
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.register(ProductCell.self, forCellReuseIdentifier: "Product Cell")
 
         return tableView
     }()
@@ -43,8 +45,8 @@ class CartViewController: UIViewController {
 // MARK: -
 
 extension CartViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 40.0
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 140.0
     }
 }
 
@@ -56,11 +58,9 @@ extension CartViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let reuseIdentifier = "Cart Item Cell"
-        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: reuseIdentifier)
-
-        let product = products[indexPath.row]
-        cell.textLabel?.text = product.name
+        let reuseIdentifier = "Product Cell"
+        let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! ProductCell
+        cell.product = products[indexPath.row]
 
         return cell
     }

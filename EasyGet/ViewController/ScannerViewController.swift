@@ -77,16 +77,16 @@ class ScannerViewController: UIViewController {
         databaseReference = Database.database().reference()
 
 //         FIXME: - Workaround to populate database
-                databaseReference.child("products").child("1").setValue(
-                    ["name": "Milk",
-                     "price": 2.5,
-                     "imageUrl": "https://firebasestorage.googleapis.com/v0/b/easyget-dcd23.appspot.com/o/milk.jpg?alt=media&token=0640789e-707a-43a0-a623-95717f652f5a"]
-                )
-                databaseReference.child("products").child("2").setValue(
-                    ["name": "Bread",
-                     "price": 1.0,
-                     "imageUrl": "https://firebasestorage.googleapis.com/v0/b/easyget-dcd23.appspot.com/o/bread.jpg?alt=media&token=0d24f1ad-f276-4720-b3b2-8bb28f3dc533"]
-                )
+//                databaseReference.child("products").child("1").setValue(
+//                    ["name": "Milk",
+//                     "price": 2.5,
+//                     "imageUrl": "https://firebasestorage.googleapis.com/v0/b/easyget-dcd23.appspot.com/o/milk.jpg?alt=media&token=0640789e-707a-43a0-a623-95717f652f5a"]
+//                )
+//                databaseReference.child("products").child("2").setValue(
+//                    ["name": "Bread",
+//                     "price": 1.0,
+//                     "imageUrl": "https://firebasestorage.googleapis.com/v0/b/easyget-dcd23.appspot.com/o/bread.jpg?alt=media&token=0d24f1ad-f276-4720-b3b2-8bb28f3dc533"]
+//                )
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -118,8 +118,7 @@ class ScannerViewController: UIViewController {
     // MARK: - Actions
 
     @objc func touchUpInside(doneButton: UIBarButtonItem) {
-        // FIXME: - Update button destination
-        let cartViewController = CartViewController(products: [Product]())
+        let cartViewController = CartViewController(products: products)
         navigationController?.pushViewController(cartViewController, animated: true)
     }
 

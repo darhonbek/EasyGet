@@ -15,8 +15,9 @@
 		2026DAFC226CB085003FECBD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2026DAFB226CB085003FECBD /* Assets.xcassets */; };
 		2026DAFF226CB085003FECBD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2026DAFD226CB085003FECBD /* LaunchScreen.storyboard */; };
 		204CD048226CCE58005F9B57 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204CD047226CCE58005F9B57 /* Product.swift */; };
-		207CE2752274DF0C00672952 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 207CE2742274DF0B00672952 /* GoogleService-Info.plist */; };
 		207CE2792274E07D00672952 /* Logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 207CE2782274E07D00672952 /* Logo.png */; };
+		207CE27D2274E40800672952 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 207CE27C2274E40700672952 /* GoogleService-Info.plist */; };
+		207CE27F2274E4FE00672952 /* ProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207CE27E2274E4FE00672952 /* ProductCell.swift */; };
 		91E4BB2377D9288837969697 /* Pods_EasyGet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDD6BF9AE5550F86C5D7A5CD /* Pods_EasyGet.framework */; };
 /* End PBXBuildFile section */
 
@@ -31,8 +32,9 @@
 		2026DAFE226CB085003FECBD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2026DB00226CB085003FECBD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		204CD047226CCE58005F9B57 /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
-		207CE2742274DF0B00672952 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		207CE2782274E07D00672952 /* Logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Logo.png; sourceTree = "<group>"; };
+		207CE27C2274E40700672952 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		207CE27E2274E4FE00672952 /* ProductCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCell.swift; sourceTree = "<group>"; };
 		7CEE95988185C6FFFBA14FFE /* Pods-EasyGet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EasyGet.release.xcconfig"; path = "Pods/Target Support Files/Pods-EasyGet/Pods-EasyGet.release.xcconfig"; sourceTree = "<group>"; };
 		CC7D325942CADEFA506114D3 /* Pods-EasyGet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EasyGet.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EasyGet/Pods-EasyGet.debug.xcconfig"; sourceTree = "<group>"; };
 		DDD6BF9AE5550F86C5D7A5CD /* Pods_EasyGet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EasyGet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -81,6 +83,7 @@
 			isa = PBXGroup;
 			children = (
 				2026DAFD226CB085003FECBD /* LaunchScreen.storyboard */,
+				207CE27E2274E4FE00672952 /* ProductCell.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -121,7 +124,7 @@
 				20180C77226CB1EB00A04555 /* Resources */,
 				20180C78226CB1F400A04555 /* UI */,
 				2026DB00226CB085003FECBD /* Info.plist */,
-				207CE2742274DF0B00672952 /* GoogleService-Info.plist */,
+				207CE27C2274E40700672952 /* GoogleService-Info.plist */,
 			);
 			path = EasyGet;
 			sourceTree = "<group>";
@@ -220,8 +223,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				2026DAFF226CB085003FECBD /* LaunchScreen.storyboard in Resources */,
-				207CE2752274DF0C00672952 /* GoogleService-Info.plist in Resources */,
 				20180C7B226CB22600A04555 /* Beep.mp3 in Resources */,
+				207CE27D2274E40800672952 /* GoogleService-Info.plist in Resources */,
 				2026DAFC226CB085003FECBD /* Assets.xcassets in Resources */,
 				207CE2792274E07D00672952 /* Logo.png in Resources */,
 			);
@@ -288,6 +291,7 @@
 				2026DAF7226CB084003FECBD /* MainViewController.swift in Sources */,
 				20180C7D226CB25600A04555 /* CartViewController.swift in Sources */,
 				204CD048226CCE58005F9B57 /* Product.swift in Sources */,
+				207CE27F2274E4FE00672952 /* ProductCell.swift in Sources */,
 				2026DAF5226CB084003FECBD /* AppDelegate.swift in Sources */,
 				20180C7F226CB26A00A04555 /* ScannerViewController.swift in Sources */,
 			);
