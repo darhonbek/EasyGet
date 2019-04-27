@@ -10,14 +10,14 @@ import AVFoundation
 import UIKit
 
 import FirebaseDatabase
+import FirebaseStorage
 
 class ScannerViewController: UIViewController {
-    fileprivate var cart: [Product]
+    var products: [Product]
     fileprivate var databaseReference: DatabaseReference!
+    fileprivate var storageReference: StorageReference!
     fileprivate var captureSession: AVCaptureSession!
     fileprivate var audioPlayer: AVAudioPlayer?
-
-    private var isScanningInProgress: Bool
 
     fileprivate lazy var previewLayer: AVCaptureVideoPreviewLayer = {
         let previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
@@ -32,12 +32,13 @@ class ScannerViewController: UIViewController {
             title: "Done",
             style: .plain,
             target: self,
-            action: #selector(touchUpInside(donebutton:))
+            action: #selector(touchUpInside(doneButton:))
         )
 
         return doneButton
     }()
 
+    private var isScanningInProgress: Bool
     private let supportedCodeTypes = [
         AVMetadataObject.ObjectType.upce,
         AVMetadataObject.ObjectType.code39,
@@ -58,7 +59,7 @@ class ScannerViewController: UIViewController {
     
     init() {
         isScanningInProgress = false
-        cart = []
+        products = []
 
         super.init(nibName: nil, bundle: nil)
     }
@@ -72,22 +73,23 @@ class ScannerViewController: UIViewController {
 
         setupCamera()
         setupAudio()
-        view.layer.addSublayer(previewLayer)
         setupNavigationBar()
+        view.layer.addSublayer(previewLayer)
 
         databaseReference = Database.database().reference()
+        storageReference = Storage.storage().reference()
 
-        // FIXME: - Workaround to populate database
-        //        databaseReference.child("products").child("1").setValue(
-        //            ["name": "Milk",
-        //             "price": 2.5,
-        //             "imageUrl": "https://firebasestorage.googleapis.com/v0/b/easyget-dcd23.appspot.com/o/milk.jpg?alt=media&token=0640789e-707a-43a0-a623-95717f652f5a"]
-        //        )
-        //        databaseReference.child("products").child("2").setValue(
-        //            ["name": "Bread",
-        //             "price": 1.0,
-        //             "imageUrl": "https://firebasestorage.googleapis.com/v0/b/easyget-dcd23.appspot.com/o/bread.jpg?alt=media&token=0d24f1ad-f276-4720-b3b2-8bb28f3dc533"]
-        //        )
+//         FIXME: - Workaround to populate database
+//                databaseReference.child("products").child("1").setValue(
+//                    ["name": "Milk",
+//                     "price": 2.5,
+//                     "imageUrl": "https://firebasestorage.googleapis.com/v0/b/easyget-dcd23.appspot.com/o/milk.jpg?alt=media&token=0640789e-707a-43a0-a623-95717f652f5a"]
+//                )
+//                databaseReference.child("products").child("2").setValue(
+//                    ["name": "Bread",
+//                     "price": 1.0,
+//                     "imageUrl": "https://firebasestorage.googleapis.com/v0/b/easyget-dcd23.appspot.com/o/bread.jpg?alt=media&token=0d24f1ad-f276-4720-b3b2-8bb28f3dc533"]
+//                )
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -118,12 +120,8 @@ class ScannerViewController: UIViewController {
 
     // MARK: - Actions
 
-    @objc func touchUpInside(backbutton: UIBarButtonItem) {
-        navigationController?.popViewController(animated: true)
-    }
-
-    @objc func touchUpInside(donebutton: UIBarButtonItem) {
-        let cartViewController = CartViewController(cart: cart)
+    @objc func touchUpInside(doneButton: UIBarButtonItem) {
+        let cartViewController = CartViewController(products: products)
         navigationController?.pushViewController(cartViewController, animated: true)
     }
 
@@ -138,12 +136,8 @@ class ScannerViewController: UIViewController {
                 let name = value["name"] as? String,
                 let price = value["price"] as? Double,
                 let imageUrl = value["imageUrl"] as? String {
-                let url = URL(fileURLWithPath: imageUrl)
-
-                // FIXME: - Image load should be async
-                let image = self.loadImageFrom(url: url)
-
-                let product = Product(id: productCode, name: name, price: price, image: image)
+                let product = Product(id: productCode, name: name, price: price, imageUrl: imageUrl)
+                self.products.append(product)
                 completionHandler(product)
             }
         }) { _ in
@@ -153,7 +147,6 @@ class ScannerViewController: UIViewController {
 
     fileprivate func showItemAddedPopup(for product: Product?, completionHandler: @escaping () -> Void) {
         if let product = product {
-            cart.append(product)
             let alertController = UIAlertController(
                 title: "Item Added to Cart ✅",
                 message: "🛒 \(product.name)\n💲 \(product.price)",
@@ -167,17 +160,6 @@ class ScannerViewController: UIViewController {
             }
         } else {
             completionHandler()
-        }
-    }
-
-    private func loadImageFrom(url: URL) -> UIImage? {
-        do {
-            let data = try Data(contentsOf: url)
-            let image = UIImage(data: data)
-
-            return image
-        } catch {
-            return nil
         }
     }
 }
@@ -205,7 +187,6 @@ extension ScannerViewController: AVCaptureMetadataOutputObjectsDelegate {
         }
     }
 }
-
 // MARK: - Audio
 
 extension ScannerViewController {
